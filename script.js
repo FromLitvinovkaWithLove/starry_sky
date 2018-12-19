@@ -34,6 +34,7 @@ let gradient = ctxStar.createRadialGradient(half, half, 0, half, half, half);
 
 
 //смена координат при движении мышки
+
 canvas.onmousemove = function(event){
     passedX = event.clientX;
     passedY = event.clientY;
@@ -44,38 +45,40 @@ canvas.onmousemove = function(event){
     },0.01);
 
     if (((passedX - futureX) <= 0 ) && ((passedY - futureY) === 0)){
-        starX_dir += 1.5;
+        starX_dir += 0.5;
         starY_dir -= 0;
     }
     if(((passedX - futureX) <= 0 ) && ((passedY - futureY) >= 0)){
-        starX_dir += 1.5;
-        starY_dir -= 1.5;
+        starX_dir += 0.5;
+        starY_dir -= 0.5;
     }
     if(((passedX - futureX) === 0 ) && ((passedY - futureY) >= 0)){
         starX_dir -= 0;
-        starY_dir -= 1.5;
+        starY_dir -= 0.5;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) >= 0)){
-        starX_dir -= 1.5;
-        starY_dir -= 1.5;
+        starX_dir -= 0.5;
+        starY_dir -= 0.5;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) === 0)){
-        starX_dir -= 1.5;
+        starX_dir -= 0.5;
         starY_dir -= 0;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) <= 0)){
-        starX_dir -= 1.5;
-        starY_dir += 1.5;
+        starX_dir -= 0.5;
+        starY_dir += 0.5;
     }
     if(((passedX - futureX) === 0 ) && ((passedY - futureY) <= 0)){
         starX_dir -= 0;
-        starY_dir -= 1.5;
+        starY_dir -= 0.5;
     }
     if(((passedX - futureX) <= 0 ) && ((passedY - futureY) <= 0)){
-        starX_dir += 1.5;
-        starY_dir += 1.5;
+        starX_dir += 0.5;
+        starY_dir += 0.5;
     }
+    stars.draw();
 }
+
 //функциия принимающая два числа и возвращающая рандомное число в  данном диапазоне,
 // включая как минимальное, так и максимальное значение
 function random(min, max) {
@@ -97,9 +100,9 @@ function random(min, max) {
 class Star {
     constructor(){
         this.radius = random(60, width/4) / 12;
+        this.alpha = random(2, 8) / 10;
         this.x = random(width);
         this.y = random(height);
-        this.alpha = random(2, 10) / 10;
 
         count++;
         stars[count] = this;
@@ -108,7 +111,7 @@ class Star {
         this.x += starX_dir;
         this.y += starY_dir;
 
-        let twinkle = random(10);
+        let twinkle = random(100);
         
         if (twinkle === 1 && this.alpha > 0) {
         this.alpha -= 0.05;
@@ -118,12 +121,7 @@ class Star {
 
         ctx.globalAlpha = this.alpha;
         ctx.drawImage(star, this.x - this.radius, this.y - this.radius, this.radius, this.radius);
-  
     } 
-}
-
-for (let i = 0; i < maxStars; i++) {
-    new Star();
 }
 
 function animation() {
@@ -133,13 +131,12 @@ function animation() {
     ctx.fillRect(0, 0, width, height);
     
     ctx.globalCompositeOperation = 'lighter';
+        
     for (let i = 1, l = stars.length; i < l; i++) {
         stars[i].draw();
     };  
-    
     starX_dir = 0;
     starY_dir = 0;
-
     window.requestAnimationFrame(animation);
 }
 
