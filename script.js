@@ -166,6 +166,7 @@ startButton.onclick = function(){
 end.onclick = function(){
     setTimeout(function(){
         start.style.display = 'flex';
+        end.style.display = "none";
     } ,500);
-    end.style.display = "none";
+    
 }
