@@ -1,3 +1,4 @@
+
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext("2d");
 
@@ -9,6 +10,8 @@ let stars = [];
 let count = 0;
 let passedX = 0;
 let passedY = 0;
+let futureX = 0;
+let futureY = 0;
 let starX_dir = 0;
 let starY_dir = 0;
 
@@ -29,6 +32,8 @@ let gradient = ctxStar.createRadialGradient(half, half, 0, half, half, half);
     ctxStar.arc(half, half, half, 0, Math.PI * 2);
     ctxStar.fill();
 
+
+//смена координат при движении мышки
 canvas.onmousemove = function(event){
     passedX = event.clientX;
     passedY = event.clientY;
@@ -39,39 +44,38 @@ canvas.onmousemove = function(event){
     },0.01);
 
     if (((passedX - futureX) <= 0 ) && ((passedY - futureY) === 0)){
-        starX_dir += 1;
+        starX_dir += 1.5;
         starY_dir -= 0;
-    }  
+    }
     if(((passedX - futureX) <= 0 ) && ((passedY - futureY) >= 0)){
-        starX_dir += 1;
-        starY_dir -= 1;
+        starX_dir += 1.5;
+        starY_dir -= 1.5;
     }
     if(((passedX - futureX) === 0 ) && ((passedY - futureY) >= 0)){
         starX_dir -= 0;
-        starY_dir -= 1;
+        starY_dir -= 1.5;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) >= 0)){
-        starX_dir -= 1;
-        starY_dir -= 1;
+        starX_dir -= 1.5;
+        starY_dir -= 1.5;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) === 0)){
-        starX_dir -= 1;
+        starX_dir -= 1.5;
         starY_dir -= 0;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) <= 0)){
-        starX_dir -= 1;
-        starY_dir += 1;
+        starX_dir -= 1.5;
+        starY_dir += 1.5;
     }
     if(((passedX - futureX) === 0 ) && ((passedY - futureY) <= 0)){
         starX_dir -= 0;
-        starY_dir -= 1;
+        starY_dir -= 1.5;
     }
     if(((passedX - futureX) <= 0 ) && ((passedY - futureY) <= 0)){
-        starX_dir += 1;
-        starY_dir += 1;
+        starX_dir += 1.5;
+        starY_dir += 1.5;
     }
 }
-
 //функциия принимающая два числа и возвращающая рандомное число в  данном диапазоне,
 // включая как минимальное, так и максимальное значение
 function random(min, max) {
@@ -89,6 +93,7 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//рандомно вставляем canvas звезды, делаем мигание, и при движении мышки меняем координаты
 class Star {
     constructor(){
         this.radius = random(60, width/4) / 12;
@@ -126,11 +131,12 @@ function animation() {
     ctx.globalAlpha = 0.8;
     ctx.fillStyle = 'hsla(217, 64%, 6%, 1)';
     ctx.fillRect(0, 0, width, height);
-
+    
     ctx.globalCompositeOperation = 'lighter';
     for (let i = 1, l = stars.length; i < l; i++) {
         stars[i].draw();
     };  
+    
     starX_dir = 0;
     starY_dir = 0;
 
@@ -139,7 +145,27 @@ function animation() {
 
 animation();
 
+//окно старта
+let start = document.querySelector(".start");
+let end = document.querySelector(".end");
+let startButton = document.querySelector('button');
 
-//for Nasty
-// то, что должно исчезать.classList.add('свой исчезающий класс')
-// то, что должно исчезать.style.display = 'none'
+end.style.display = 'none';
+
+startButton.onclick = function(){
+    setTimeout(function(){
+        start.style.display = 'none';
+        for (let i = 0; i < maxStars; i++) {
+            new Star();
+        }
+        end.style.display = "flex";
+    } ,500);
+    
+}
+
+end.onclick = function(){
+    setTimeout(function(){
+        start.style.display = 'flex';
+    } ,500);
+    end.style.display = "none";
+}
