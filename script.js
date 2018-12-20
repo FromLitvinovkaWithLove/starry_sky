@@ -45,36 +45,36 @@ canvas.onmousemove = function(event){
     },0.01);
 
     if (((passedX - futureX) <= 0 ) && ((passedY - futureY) === 0)){
-        starX_dir += 0.5;
+        starX_dir += 1;
         starY_dir -= 0;
     }
     if(((passedX - futureX) <= 0 ) && ((passedY - futureY) >= 0)){
-        starX_dir += 0.5;
-        starY_dir -= 0.5;
+        starX_dir += 1;
+        starY_dir -= 1;
     }
     if(((passedX - futureX) === 0 ) && ((passedY - futureY) >= 0)){
         starX_dir -= 0;
-        starY_dir -= 0.5;
+        starY_dir -= 1;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) >= 0)){
-        starX_dir -= 0.5;
-        starY_dir -= 0.5;
+        starX_dir -= 1;
+        starY_dir -= 1;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) === 0)){
-        starX_dir -= 0.5;
+        starX_dir -= 1;
         starY_dir -= 0;
     }
     if(((passedX - futureX) >= 0 ) && ((passedY - futureY) <= 0)){
-        starX_dir -= 0.5;
-        starY_dir += 0.5;
+        starX_dir -= 1;
+        starY_dir += 1;
     }
     if(((passedX - futureX) === 0 ) && ((passedY - futureY) <= 0)){
         starX_dir -= 0;
-        starY_dir -= 0.5;
+        starY_dir -= 1;
     }
     if(((passedX - futureX) <= 0 ) && ((passedY - futureY) <= 0)){
-        starX_dir += 0.5;
-        starY_dir += 0.5;
+        starX_dir += 1;
+        starY_dir += 1;
     }
     stars.draw();
 }

@@ -16,7 +16,7 @@ canvas{
     width: 100vw;
     height: 100vh;
     position: absolute;
-    background: radial-gradient(rgba(78, 74, 74, 0.658),rgba(51, 48, 48, 0.658), rgba(31, 29, 29, 0.658), rgba(17, 17, 17, 0.658) );
+    background: radial-gradient(rgba(78, 74, 74, 0.5),rgba(51, 48, 48, 0.5), rgba(31, 29, 29, 0.5), rgba(17, 17, 17, 0.5) );
     display: flex;
     justify-content: center;
     align-items: center;
